@@ -32,6 +32,68 @@
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
 int main() {
+    #include <stdio.h>
+#include <string.h>
+
+#define MAX 5
+
+// ---------------------------
+// Struct Território
+// ---------------------------
+typedef struct {
+    char nome[40];
+    char cor[20];
+    int tropas;
+} Territorio;
+
+// ---------------------------
+// Limpa o buffer do teclado
+// ---------------------------
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
+// ---------------------------
+// Exibe os dados dos territórios
+// ---------------------------
+void exibirMapa(Territorio mapa[]) {
+    printf("\n=== ESTADO ATUAL DO MAPA ===\n");
+    for (int i = 0; i < MAX; i++) {
+        printf("\nTerritório %d:\n", i + 1);
+        printf("Nome: %s", mapa[i].nome);
+        printf("Cor do Exército: %s", mapa[i].cor);
+        printf("Tropas: %d\n", mapa[i].tropas);
+    }
+}
+
+int main() {
+
+    Territorio mapa[MAX];
+
+    printf("=== Cadastro de Territórios ===\n");
+
+    for (int i = 0; i < MAX; i++) {
+        printf("\nCadastro do Território %d\n", i + 1);
+
+        printf("Nome do Território: ");
+        fgets(mapa[i].nome, sizeof(mapa[i].nome), stdin);
+
+        printf("Cor do Exército: ");
+        fgets(mapa[i].cor, sizeof(mapa[i].cor), stdin);
+
+        printf("Número de Tropas: ");
+        scanf("%d", &mapa[i].tropas);
+
+        limparBuffer();  // evita problemas no próximo fgets
+    }
+
+    // Exibir dados cadastrados
+    exibirMapa(mapa);
+
+    return 0;
+}
+
     // 1. Configuração Inicial (Setup):
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
